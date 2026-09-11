@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maykool 💘 Gabriela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="fondo" id="fondo" aria-hidden="true"></div>
+
+  <!-- ============ LOGIN ============ -->
+  <section class="login" id="login">
+    <div class="login-tarjeta">
+      <div class="login-corazon">💘</div>
+      <h1 class="login-titulo">Nuestro Rincón</h1>
+      <p class="login-sub">Un espacio solo para los dos</p>
+      <form id="login-form" autocomplete="off" novalidate>
+        <label class="login-label" for="login-nombre">¿Quién eres, mi amor?</label>
+        <div class="login-input-wrap">
+          <input id="login-nombre" class="login-input" type="text" maxlength="20"
+                 placeholder="Escribe tu nombre" aria-label="Tu nombre">
+          <button class="login-boton" type="submit" aria-label="Entrar">Entrar</button>
+        </div>
+        <p class="login-error" id="login-error" role="alert" hidden></p>
+        <p class="login-nota" id="login-nota" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ CHAT ============ -->
+  <section class="chat hidden" id="chat" aria-hidden="true">
+    <header class="chat-cabeza">
+      <div class="cabeza-perfiles">
+        <span class="avatar avatar-maykool" aria-hidden="true">M</span>
+        <span class="cabeza-nombre"><strong>Maykool</strong></span>
+        <span class="cabeza-corazon" aria-hidden="true">💘</span>
+        <span class="avatar avatar-gabriela" aria-hidden="true">G</span>
+        <span class="cabeza-nombre"><strong>Gabriela</strong></span>
+      </div>
+      <p class="cabeza-estado" id="estado">Conectad@s <span class="estado-punto"></span></p>
+      <button class="icono-boton" id="btn-salir" aria-label="Cerrar sesión" title="Cerrar sesión">🚪</button>
+    </header>
+
+    <main class="mensajes" id="mensajes"></main>
+
+    <footer class="input-caja">
+      <div class="emoji-picker hidden" id="emoji-picker" aria-label="Emojis para enviar"></div>
+      <div class="input-linea">
+        <button class="icono-boton" id="btn-emoji" aria-label="Elegir emoji" title="Emojis">😍</button>
+        <input id="input-texto" class="input-texto" type="text" maxlength="500"
+               placeholder="Escribe algo bonito..." aria-label="Tu mensaje">
+        <button class="enviar-boton" id="btn-enviar" aria-label="Enviar mensaje" title="Enviar">💌</button>
+      </div>
+    </footer>
+  </section>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
