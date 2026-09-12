@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I'm Thinking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💭</text></svg>">
+  <link rel="stylesheet" href="css/styles.css?v=3">
+</head>
+<body>
+  <div class="fondo-manto" id="fondo-manto" aria-hidden="true"></div>
+  <div class="fondo-tinta" id="fondo-tinta" aria-hidden="true"></div>
+  <div class="fondo" id="fondo" aria-hidden="true"></div>
+
+  <!-- ==================== LOGIN ==================== -->
+  <section class="login" id="login">
+    <div class="login-tarjeta">
+      <div class="login-corazon">💭</div>
+      <h1 class="login-titulo">I'm Thinking</h1>
+      <p class="login-sub">Tu mini red social · amigos, familia y gente genial</p>
+
+      <div class="login-rapido hidden" id="login-rapido">
+        <button class="chip-sesion" id="btn-continuar" type="button">▶ Continuar como <strong id="sesion-nombre"></strong></button>
+        <div class="chip-separador">o</div>
+      </div>
+
+      <form id="login-form" autocomplete="off" novalidate>
+        <label class="login-label" for="login-nombre">¿Cómo te llamas?</label>
+        <div class="login-input-wrap">
+          <input id="login-nombre" class="login-input" type="text" maxlength="24"
+                 placeholder="Escribe tu nombre" aria-label="Tu nombre">
+          <button class="login-boton" type="submit" aria-label="Entrar">Entrar</button>
+        </div>
+        <p class="login-error" id="login-error" role="alert" hidden></p>
+        <p class="login-nota" id="login-nota" hidden></p>
+      </form>
+
+      <div id="login-clave-wrap" class="login-clave hidden">
+        <p class="login-label">Este perfil tiene contraseña 🔒<br>Escribe su contraseña:</p>
+        <div class="login-input-wrap">
+          <input id="login-clave" class="login-input" type="password" maxlength="64" placeholder="Contraseña" aria-label="Contraseña">
+          <button class="login-boton" id="btn-desbloquear" type="button">Entrar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SETUP DE PERFIL ==================== -->
+  <section class="setup hidden" id="setup">
+    <div class="login-tarjeta">
+      <div class="login-corazon">✨</div>
+      <h1 class="login-titulo" id="setup-titulo">¡Bienvenid@!</h1>
+      <p class="login-sub">Dale vida a tu perfil, <strong id="setup-nombre"></strong></p>
+
+      <label class="login-label">Tu emoji</label>
+      <div class="emoji-fila" id="setup-emoji"></div>
+
+      <label class="login-label">Tu color</label>
+      <div class="color-fila" id="setup-color"></div>
+
+      <label class="login-label" for="setup-clave">Crea una contraseña (obligatoria)</label>
+      <input id="setup-clave" class="login-input" type="password" maxlength="64" placeholder="Mínimo 4 caracteres" aria-label="Contraseña">
+
+      <button class="login-boton u-block" id="btn-crear-perfil" type="button">Crear mi perfil</button>
+    </div>
+  </section>
+
+  <!-- ==================== HOME (mis chats) ==================== -->
+  <section class="home hidden" id="home">
+    <header class="home-cabeza">
+      <div class="home-mi">
+        <span class="avatar avatar-dinamico" id="mi-avatar">😊</span>
+        <span class="home-mi-nombre" id="mi-nombre"></span>
+      </div>
+      <button class="icono-boton" id="btn-buscar" title="Buscar gente" aria-label="Buscar gente">🔍</button>
+      <button class="icono-boton" id="btn-nuevo-grupo" title="Crear grupo" aria-label="Crear grupo">👥</button>
+      <button class="icono-boton" id="btn-perfil" title="Editar perfil" aria-label="Editar perfil">⚙️</button>
+      <button class="icono-boton" id="btn-salir" title="Salir" aria-label="Salir">🚪</button>
+    </header>
+
+    <div class="home-titulo">
+      <h2>Mis chats</h2>
+      <p id="home-sub">Cargando...</p>
+    </div>
+
+    <main class="lista-chats" id="lista-chats"></main>
+  </section>
+
+  <!-- ==================== CHAT ==================== -->
+  <section class="chat-view hidden" id="chat-view">
+    <div class="chat-view-inner" id="chat-view-tema">
+      <header class="chat-cabeza">
+        <button class="icono-boton" id="btn-volver" title="Volver" aria-label="Volver">←</button>
+        <span class="avatar avatar-dinamico" id="chat-avatar">👤</span>
+        <div class="cabeza-info">
+          <strong id="chat-titulo"></strong>
+          <span id="chat-estado"></span>
+        </div>
+        <button class="icono-boton" id="btn-tema" title="Tema del chat" aria-label="Tema del chat">🎨</button>
+        <button class="icono-boton" id="btn-vaciar" title="Vaciar chat (solo para ti)" aria-label="Vaciar chat">🧹</button>
+      </header>
+
+      <main class="mensajes" id="mensajes"></main>
+
+      <footer class="input-caja">
+        <div class="panel hidden" id="panel-emoji"></div>
+        <div class="panel panel-stickers hidden" id="panel-stickers">
+          <p class="panel-titulo">Stickers</p>
+          <div class="sticker-grid" id="grid-stickers"></div>
+        </div>
+        <div class="input-linea">
+          <button class="icono-boton" id="btn-emoji" title="Emojis" aria-label="Emojis">🙂</button>
+          <button class="icono-boton" id="btn-stickers" title="Stickers" aria-label="Stickers">🎁</button>
+          <button class="icono-boton oculto-movil" id="btn-foto" title="Foto" aria-label="Enviar foto">🖼️</button>
+          <button class="icono-boton oculto-movil" id="btn-video" title="Video" aria-label="Enviar video">🎬</button>
+          <button class="icono-boton oculto-movil" id="btn-audio" title="Nota de voz" aria-label="Nota de voz">🎙️</button>
+          <input type="file" id="input-foto" accept="image/*" hidden>
+          <input type="file" id="input-video" accept="video/*" hidden>
+          <span id="audio-rec-box" class="audio-rec hidden">🔴 Grabando <span id="audio-rec-tiempo">0s</span></span>
+          <input id="input-texto" class="input-texto" type="text" maxlength="1000"
+                 placeholder="Escribe algo..." aria-label="Escribe un mensaje">
+          <button class="enviar-boton" id="btn-enviar" title="Enviar" aria-label="Enviar">➤</button>
+          <div class="adjuntos" id="adjuntos">
+            <span class="adjunto-chip" id="adjunto-nombre"></span>
+            <button class="icono-boton adjunto-x" id="adjunto-x" title="Quitar" aria-label="Quitar adjunto">✕</button>
+            <button class="enviar-boton" id="btn-enviar-adjunto" title="Enviar" aria-label="Enviar">➤</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ==================== MODALES ==================== -->
+  <div class="modal hidden" id="modal-buscar">
+    <div class="modal-tarjeta">
+      <div class="modal-cabeza">
+        <h3>Buscar a alguien</h3>
+        <button class="icono-boton" data-cerrar="modal-buscar" aria-label="Cerrar">✕</button>
+      </div>
+      <input id="buscar-input" class="login-input" type="text" placeholder="Por nombre..." aria-label="Buscar por nombre">
+      <main class="lista-resultados" id="buscar-resultados"></main>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="modal-grupo">
+    <div class="modal-tarjeta">
+      <div class="modal-cabeza">
+        <h3>Nuevo grupo</h3>
+        <button class="icono-boton" data-cerrar="modal-grupo" aria-label="Cerrar">✕</button>
+      </div>
+      <input id="grupo-nombre" class="login-input" type="text" maxlength="30" placeholder="Nombre del grupo" aria-label="Nombre del grupo">
+      <input id="grupo-buscar" class="login-input" type="text" placeholder="Agregar miembros (busca por nombre)" aria-label="Buscar miembros">
+      <main class="lista-resultados" id="grupo-resultados"></main>
+      <div class="miembros-seleccion" id="grupo-miembros"></div>
+      <button class="login-boton u-block" id="btn-crear-grupo" type="button">Crear grupo</button>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="modal-perfil">
+    <div class="modal-tarjeta">
+      <div class="modal-cabeza">
+        <h3>Mi perfil</h3>
+        <button class="icono-boton" data-cerrar="modal-perfil" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="perfil-preview" id="perfil-preview"><span class="avatar avatar-dinamico" id="perfil-avatar">😊</span><strong id="perfil-nombre-v">—</strong></div>
+      <label class="login-label">Nombre</label>
+      <input id="perfil-nombre" class="login-input" type="text" maxlength="24" aria-label="Nombre">
+      <label class="login-label">Emoji</label>
+      <div class="emoji-fila" id="perfil-emoji"></div>
+      <label class="login-label">Color</label>
+      <div class="color-fila" id="perfil-color"></div>
+      <label class="login-label">Tu foto de perfil <small>(opcional)</small></label>
+      <div class="foto-fila" id="perfil-foto-fila">
+        <span class="avatar avatar-dinamico" id="perfil-foto-preview">😊</span>
+        <button class="login-boton" id="btn-perfil-foto" type="button">Subir foto</button>
+        <button class="icono-boton" id="btn-perfil-foto-quitar" title="Quitar foto" aria-label="Quitar foto">✕</button>
+      </div>
+      <input type="file" id="perfil-foto-input" accept="image/*" hidden>
+      <label class="login-label">Estilo de fondo</label>
+      <p class="login-sub estilo-sub">Cada estilo tiene su pack de emojis que flotan en el fondo ✨</p>
+      <div class="estilo-fila" id="perfil-estilos"></div>
+      <label class="login-label">Fondo con imagen</label>
+      <div class="foto-fila" id="perfil-fondo-fila">
+        <span class="mini-fondo" id="perfil-fondo-preview">🌅</span>
+        <button class="login-boton" id="btn-perfil-fondo" type="button">Subir fondo</button>
+        <button class="icono-boton" id="btn-perfil-fondo-quitar" title="Quitar fondo" aria-label="Quitar fondo">✕</button>
+      </div>
+      <input type="file" id="perfil-fondo-input" accept="image/*" hidden>
+      <label class="login-label" for="perfil-fondo-oscuridad">Oscuridad del fondo <span id="perfil-fondo-valor">0%</span></label>
+      <input type="range" id="perfil-fondo-oscuridad" min="0" max="90" step="5" value="0">
+      <label class="interruptor"><span>Emojis flotantes</span><span class="switch"><input type="checkbox" id="perfil-fondo-emojis" checked><span class="carril"></span><span class="bolita"></span></span></label>
+      <label class="login-label">Bio</label>
+      <input id="perfil-bio" class="login-input" type="text" maxlength="60" placeholder="Cuéntanos de ti..." aria-label="Bio">
+      <label class="login-label" for="perfil-clave">Cambiar contraseña (déjalo vacío para mantenerla)</label>
+      <input id="perfil-clave" class="login-input" type="password" maxlength="64" placeholder="Nueva contraseña" aria-label="Contraseña">
+      <button class="login-boton u-block" id="btn-guardar-perfil" type="button">Guardar</button>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="modal-tema">
+    <div class="modal-tarjeta">
+      <div class="modal-cabeza">
+        <h3>Tema de este chat</h3>
+        <button class="icono-boton" data-cerrar="modal-tema" aria-label="Cerrar">✕</button>
+      </div>
+      <p class="login-sub">Cada chat puede tener el suyo ✨</p>
+      <div class="tema-fila" id="lista-temas"></div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="modal-reenviar">
+    <div class="modal-tarjeta">
+      <div class="modal-cabeza">
+        <h3>Reenviar a...</h3>
+        <button class="icono-boton" data-cerrar="modal-reenviar" aria-label="Cerrar">✕</button>
+      </div>
+      <main class="lista-resultados" id="reenviar-lista"></main>
+    </div>
+  </div>
+
+  <!-- lightbox para ver fotos -->
+  <div class="lightbox hidden" id="lightbox">
+    <img id="lightbox-img" alt="Foto" />
+    <button class="icono-boton" data-cerrar="lightbox" aria-label="Cerrar">✕</button>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="libs/firebase-app-compat.js"></script>
+  <script src="libs/firebase-auth-compat.js"></script>
+  <script src="libs/firebase-database-compat.js"></script>
+  <script src="js/config.js?v=3"></script>
+  <script src="js/data.js?v=3"></script>
+  <script src="js/media.js?v=3"></script>
+  <script src="js/chat.js?v=3"></script>
+  <script src="js/home.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>
